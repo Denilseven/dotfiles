@@ -1,0 +1,283 @@
+set $mod Mod4
+set $wallpaper_path ~/Pictures/Wallpapers/Old/green-plains-nice-res.png
+
+# Some resources:
+# https://i3wm.org/docs/userguide.html
+# https://thomashunter.name/i3-configurator/
+
+#########################
+# BINDS - BINDS - BINDS #
+#########################
+
+# Reload and restart i3
+bindsym $mod+o exec i3-msg reload && sleep 1 && i3-msg restart
+
+# Log out of X session (exit i3)
+bindsym $mod+shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
+
+# Lock the screen
+bindsym $mod+p exec scrot --pointer --overwrite --file ~/.i3lock-image.png && convert ~/.i3lock-image.png -colorspace Gray -blur 0x5 ~/.i3lock-image.png && i3lock -fi ~/.i3lock-image.png && rm ~/.i3lock-image.png
+# bindsym $mod+p exec i3lock -fi --tiling ~/path/to/tiling/image.png
+
+bindsym $mod+space exec rofi -show drun
+bindsym $mod+tab exec rofi -show window
+# bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
+
+bindsym $mod+q kill
+
+bindsym $mod+n move workspace to output right
+workspace_auto_back_and_forth yes
+
+# Screenshots
+bindsym Print exec scrot --file ~/Pictures/Screenshots/Screen-%Y-%m-%d-%H-%M.png && notify-send -t 1000 'Screen captured!' || notify-send 'Failed to take screenshot.'
+bindsym $mod+s exec scrot --file ~/Pictures/Screenshots/Screen-%Y-%m-%d-%H-%M.png && notify-send -t 1000 'Screen captured!' || notify-send 'Failed to take screenshot.'
+bindsym $mod+shift+s --release exec scrot --select --file ~/Pictures/Screenshots/Selection-%Y-%m-%d-%H-%M.png && notify-send -t 1000 'Selection captured!' || notify-send 'Failed to take screenshot.'
+bindsym $mod+control+s exec scrot --focused --file ~/Pictures/Screenshots/Window-%Y-%m-%d-%H-%M.png && notify-send -t 1000 'Window captured!' || notify-send 'Failed to take screenshot.'
+# bindsym Print exec "scrot --file ~/Pictures/Scrot/%Y-%m-%d-%H-%M.png && paplay ~/.sfx/reverbed.ogg"
+
+############################
+# LAUNCH - LAUNCH - LAUNCH #
+############################
+
+# bindsym $mod+Return exec xterm || i3-sensible-terminal
+bindsym $mod+Return exec i3-sensible-terminal
+
+bindsym $mod+control+d exec "thunar ~/Desktop"
+bindsym $mod+control+w exec firefox
+bindsym $mod+control+c exec code
+
+#########################
+# STYLE - STYLE - STYLE #
+#########################
+
+exec_always feh --bg-fill $wallpaper_path
+# exec_always xsetroot -solid black
+# exec xrandr --output DP-3 --rotate left
+# exec compton -b --config /home/den/.config/compton.conf
+# exec xrandr --auto --output DP-3 --left-of HDMI-0
+
+font pango:hack 8
+title_align left
+for_window [all] title_window_icon yes
+
+hide_edge_borders smart
+for_window [all] border normal
+# gaps inner 7
+# smart_gaps on
+# default_border pixel 3
+# default_floating_border pixel 3
+# set $custom_border_width 3 # Use 'xprop | grep WM_CLASS' to grab window classes
+# for_window [class=Code] border pixel $custom_border_width
+
+bar {
+	status_command i3status -c ~/.config/i3/status
+	position bottom
+	workspace_min_width 50
+	# font pango:hack 10
+
+	# Bar colors
+	colors {
+		focused_workspace #999999 #505050 #FFFFFF
+		active_workspace #505050 #202020 #AAAAAA
+		urgent_workspace #FB4934 #CC241D #FFFFFF
+	}
+}
+
+# Window colors
+client.focused #999999 #505050 #FFFFFF #458588 #999999
+client.focused_inactive #505050 #202020 #AAAAAA #458588 #505050
+client.urgent #FB4934 #CC241D #FFFFFF #458588 #FB4934
+
+######################
+# BASE - BASE - BASE #
+######################
+
+# Change focus
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+# Move focused window
+bindsym $mod+shift+h move left
+bindsym $mod+shift+j move down
+bindsym $mod+shift+k move up
+bindsym $mod+shift+l move right
+
+bindsym $mod+shift+Left move left
+bindsym $mod+shift+Down move down
+bindsym $mod+shift+Up move up
+bindsym $mod+shift+Right move right
+
+bindsym $mod+b split h
+bindsym $mod+v split v
+bindsym $mod+a focus parent
+
+bindsym $mod+e layout toggle all
+# bindsym $mod+s layout stacking
+# bindsym $mod+w layout tabbed
+# bindsym $mod+e layout toggle split
+# bindsym $mod+e layout toggle tabbed splith
+
+# Floaty stuff
+floating_modifier $mod
+tiling_drag modifier titlebar
+
+bindsym $mod+f fullscreen toggle
+bindsym $mod+shift+f floating toggle
+bindsym $mod+control+f focus mode_toggle
+
+######################################## 
+# WORKSPACES - WORKSPACES - WORKSPACES #
+######################################## 
+
+set $ws1 number 1
+set $ws2 number 2
+set $ws3 number 3
+set $ws4 number 4
+set $ws5 number 5
+set $ws6 number 6
+set $ws7 number 7
+set $ws8 number 8
+set $ws9 number 9
+set $ws10 "Z"
+
+# switch to workspace
+bindsym $mod+1 workspace $ws1
+bindsym $mod+2 workspace $ws2
+bindsym $mod+3 workspace $ws3
+bindsym $mod+4 workspace $ws4
+bindsym $mod+5 workspace $ws5
+bindsym $mod+6 workspace $ws6
+bindsym $mod+7 workspace $ws7
+bindsym $mod+8 workspace $ws8
+bindsym $mod+9 workspace $ws9
+bindsym $mod+0 workspace $ws10
+
+# move focused container to workspace
+bindsym $mod+shift+1 move container to workspace $ws1
+bindsym $mod+shift+2 move container to workspace $ws2
+bindsym $mod+shift+3 move container to workspace $ws3
+bindsym $mod+shift+4 move container to workspace $ws4
+bindsym $mod+shift+5 move container to workspace $ws5
+bindsym $mod+shift+6 move container to workspace $ws6
+bindsym $mod+shift+7 move container to workspace $ws7
+bindsym $mod+shift+8 move container to workspace $ws8
+bindsym $mod+shift+9 move container to workspace $ws9
+bindsym $mod+shift+0 move container to workspace $ws10
+
+#########################
+# MODES - MODES - MODES #
+#########################
+
+bindsym $mod+r mode "resize"
+mode "resize" {
+	set $resize_step 20 px or 10 ppt
+
+	bindsym h resize shrink width $resize_step
+	bindsym j resize grow height $resize_step
+	bindsym k resize shrink height $resize_step
+	bindsym l resize grow width $resize_step
+
+	bindsym Left resize shrink width $resize_step
+	bindsym Down resize grow height $resize_step
+	bindsym Up resize shrink height $resize_step
+	bindsym Right resize grow width $resize_step
+
+	bindsym Return mode "default"
+	bindsym Escape mode "default"
+	bindsym $mod+r mode "default"
+	bindsym $mod+t mode "move"
+}
+
+bindsym $mod+t mode "move"
+mode "move" {
+	set $move_step 40 px
+
+	bindsym h move left $move_step
+	bindsym j move down $move_step
+	bindsym k move up $move_step
+	bindsym l move right $move_step
+
+	bindsym Left move left $move_step
+	bindsym Down move down $move_step
+	bindsym Up move up $move_step
+	bindsym Right move right $move_step
+
+	bindsym Return mode "default"
+	bindsym Escape mode "default"
+	bindsym $mod+t mode "default"
+	bindsym $mod+r mode "resize"
+}
+
+set $mouse_notify_time 1000
+bindsym $mod+x mode "mouse"; exec notify-send -t $mouse_notify_time "Entered mouse mode"
+mode "mouse" {
+	set $small_step 2
+	set $normal_step 20
+	set $large_step 200
+	set $mouse_up_command xdotool mouseup 1 && xdotool mouseup 2 && xdotool mouseup 3
+
+	bindsym q exec xdotool click 1
+	bindsym w exec xdotool click 2
+	bindsym e exec xdotool click 3
+
+	bindsym a exec xdotool mousedown 1 && notify-send -t $mouse_notify_time "Mouse LEFT down"
+	bindsym s exec xdotool mousedown 2 && notify-send -t $mouse_notify_time "Mouse MIDDLE down"
+	bindsym d exec xdotool mousedown 3 && notify-send -t $mouse_notify_time "Mouse RIGHT down"
+
+	bindsym r exec xdotool click 4 # Wheel up
+	bindsym f exec xdotool click 5 # Wheel down
+
+	bindsym x exec $mouse_up_command && notify-send -t $mouse_notify_time "All mouse keys up"
+
+	bindsym Left exec xdotool mousemove_relative -- -$normal_step 0
+	bindsym Down exec xdotool mousemove_relative -- 0 $normal_step
+	bindsym Up exec xdotool mousemove_relative -- 0 -$normal_step
+	bindsym Right exec xdotool mousemove_relative -- $normal_step 0
+
+	bindsym shift+Left exec xdotool mousemove_relative -- -$small_step 0
+	bindsym shift+Down exec xdotool mousemove_relative -- 0 $small_step
+	bindsym shift+Up exec xdotool mousemove_relative -- 0 -$small_step
+	bindsym shift+Right exec xdotool mousemove_relative -- $small_step 0
+
+	bindsym control+Left exec xdotool mousemove_relative -- -$large_step 0
+	bindsym control+Down exec xdotool mousemove_relative -- 0 $large_step
+	bindsym control+Up exec xdotool mousemove_relative -- 0 -$large_step
+	bindsym control+Right exec xdotool mousemove_relative -- $large_step 0
+
+	bindsym Return exec $mouse_up_command && notify-send -t $mouse_notify_time "Exit mouse mode"; mode "default"
+	bindsym Escape exec $mouse_up_command && notify-send -t $mouse_notify_time "Exit mouse mode"; mode "default"
+	bindsym $mod+x exec $mouse_up_command && notify-send -t $mouse_notify_time "Exit mouse mode"; mode "default"
+}
+
+######################
+# TECH - TECH - TECH #
+######################
+
+# Use pactl to adjust volume in PulseAudio.
+set $refresh_i3status killall -SIGUSR1 i3status
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10% && $refresh_i3status
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
+bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
+
+# Start XDG autostart .desktop files using dex. See also
+# https://wiki.archlinux.org/index.php/XDG_Autostart
+exec --no-startup-id dex --autostart --environment i3
+
+# The combination of xss-lock, nm-applet and pactl is a popular choice, so
+# they are included here as an example. Modify as you see fit.
+
+# xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
+# screen before suspend. Use loginctl lock-session to lock your screen.
+exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
+
+# NetworkManager is the most popular way to manage wireless networks on Linux,
+# and nm-applet is a desktop environment-independent system tray GUI for it.
+exec --no-startup-id nm-applet
