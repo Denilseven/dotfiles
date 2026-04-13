@@ -1,9 +1,22 @@
 set $mod Mod4
-set $wallpaper_path ~/Pictures/Wallpapers/Old/green-plains-nice-res.png
 
 # Some resources:
 # https://i3wm.org/docs/userguide.html
 # https://thomashunter.name/i3-configurator/
+
+#########################
+# START - START - START #
+#########################
+
+exec lxpolkit --no-startup-id
+
+exec_always feh --bg-fill ~/Pictures/Wallpapers/abstract-4.png
+exec_always xrandr --output HDMI-0 --auto --primary --left-of DP-3 --output DP-3 --off --rotate left
+# exec_always xsetroot -solid black
+# exec compton
+
+# workspace 1 output DP-3
+# workspace 2 output HDMI-0
 
 #########################
 # BINDS - BINDS - BINDS #
@@ -19,14 +32,10 @@ bindsym $mod+shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcu
 bindsym $mod+p exec scrot --pointer --overwrite --file ~/.i3lock-image.png && convert ~/.i3lock-image.png -colorspace Gray -blur 0x5 ~/.i3lock-image.png && i3lock -fi ~/.i3lock-image.png && rm ~/.i3lock-image.png
 # bindsym $mod+p exec i3lock -fi --tiling ~/path/to/tiling/image.png
 
-bindsym $mod+space exec rofi -show drun
-bindsym $mod+tab exec rofi -show window
-# bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
-
 bindsym $mod+q kill
 
 bindsym $mod+n move workspace to output right
-workspace_auto_back_and_forth yes
+# workspace_auto_back_and_forth yes
 
 # Screenshots
 bindsym Print exec scrot --file ~/Pictures/Screenshots/Screen-%Y-%m-%d-%H-%M.png && notify-send -t 1000 'Screen captured!' || notify-send 'Failed to take screenshot.'
@@ -39,22 +48,26 @@ bindsym $mod+control+s exec scrot --focused --file ~/Pictures/Screenshots/Window
 # LAUNCH - LAUNCH - LAUNCH #
 ############################
 
+bindsym $mod+space exec rofi -show drun
+bindsym $mod+d exec rofi -show drun
+bindsym $mod+Tab exec rofi -show window
+# bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
+
 # bindsym $mod+Return exec xterm || i3-sensible-terminal
 bindsym $mod+Return exec i3-sensible-terminal
+
+bindsym $mod+shift+Return exec "xfce4-terminal --initial-title='Floaty Terminal'"
+for_window [title="Floaty*"] floating enable
+# WIP # bindsym $mod+BackSpace exec "xfce4-terminal --initial-title='Floaty Terminal' -e 'i3-dmenu-desktop --dmenu=fzf'"
 
 bindsym $mod+control+d exec "thunar ~/Desktop"
 bindsym $mod+control+w exec firefox
 bindsym $mod+control+c exec code
+bindsym $mod+shift+c exec ~/.scripts/open-code-project.sh
 
 #########################
 # STYLE - STYLE - STYLE #
 #########################
-
-exec_always feh --bg-fill $wallpaper_path
-# exec_always xsetroot -solid black
-# exec xrandr --output DP-3 --rotate left
-# exec compton -b --config /home/den/.config/compton.conf
-# exec xrandr --auto --output DP-3 --left-of HDMI-0
 
 font pango:hack 8
 title_align left
@@ -170,6 +183,18 @@ bindsym $mod+shift+7 move container to workspace $ws7
 bindsym $mod+shift+8 move container to workspace $ws8
 bindsym $mod+shift+9 move container to workspace $ws9
 bindsym $mod+shift+0 move container to workspace $ws10
+
+# move and switch to workspace
+bindsym $mod+control+shift+1 move container to workspace $ws1; workspace $ws1
+bindsym $mod+control+shift+2 move container to workspace $ws2; workspace $ws2
+bindsym $mod+control+shift+3 move container to workspace $ws3; workspace $ws3
+bindsym $mod+control+shift+4 move container to workspace $ws4; workspace $ws4
+bindsym $mod+control+shift+5 move container to workspace $ws5; workspace $ws5
+bindsym $mod+control+shift+6 move container to workspace $ws6; workspace $ws6
+bindsym $mod+control+shift+7 move container to workspace $ws7; workspace $ws7
+bindsym $mod+control+shift+8 move container to workspace $ws8; workspace $ws8
+bindsym $mod+control+shift+9 move container to workspace $ws9; workspace $ws9
+bindsym $mod+control+shift+0 move container to workspace $ws10; workspace $ws10
 
 #########################
 # MODES - MODES - MODES #

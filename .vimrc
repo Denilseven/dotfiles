@@ -15,7 +15,7 @@ set softtabstop=6
 set autoindent
 set smartindent
 
-set relativenumber
+" set relativenumber
 set number
 set numberwidth=1
 
