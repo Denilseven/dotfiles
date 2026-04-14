@@ -1,9 +1,10 @@
+# Use a Nerd Font to display icons
+
 # It is important that this file is edited as UTF-8.
 # See "man i3status" for documentation.
 
 general {
 	output_format = "i3bar"
-	separator = "|" # Does this work?
 	interval = 1
 
 	colors = true
@@ -16,60 +17,87 @@ general {
 # order += ipv6
 # order += "wireless _first_"
 # order += "ethernet _first_"
-# order += "battery all"
 order += "cpu_usage"
 # order += "load"
 order += memory
 order += "disk /"
 order += "volume master"
+order += "battery all"
 order += "tztime local"
 
 wireless _first_ {
 	format_up = "W: %quality at %essid"
 	format_down = "W: down"
+	separator = false
+	separator_block_width = 15
 }
 
 ethernet _first_ {
 	format_up = "E: %speed"
 	format_down = "E: down"
+	separator = false
+	separator_block_width = 15
 }
 
 battery all {
-	format = "%status %percentage %remaining"
+#	format = "%status %percentage %remaining"
+	format = "%status %percentage %consumption"
+	format_percentage = "%.f%s"
+	min_width = 100
+	status_chr = "󱐋"
+	status_bat = "󰁹"
+	low_threshold = 25
+	threshold_type = "percentage"
+	separator = false
+	# separator_block_width = 15
 }
 
 cpu_usage {
-	format = "CPU %usage"
+	format = " %usage"
+	separator = false
+	separator_block_width = 15
 }
 
 load {
 	format = "%1min"
+	separator = false
+	separator_block_width = 15
 }
 
 memory {
-	format = "Mem. %used / %total"
-	threshold_degraded = "1G"
+	format = " %percentage_used"
+	# format = " %used/%total"
+	threshold_degraded = "25%"
+	threshold_critical = "1G"
 	format_degraded = "MEMORY < %available"
 	# format = "Mem. %percentage_used"
+	separator = false
+	separator_block_width = 15
 }
 
 disk "/" {
-	format = "%avail disk avail."
+	format = "󰨣 %avail avail."
 	# format = "Disk %percentage_used used (%avail avail.)"
 	# format = "Disk %used / %total"
+	separator = false
+	separator_block_width = 15
 }
 
 volume master {
-	format = "Vol. %volume"
-	format_muted = "MUTED %volume"
+	format = "󰝚 %volume"
+	format_muted = "󰝛 %volume"
 	# device = "pulse"
 	# device = "pulse:1"
 	# device = "default"
 	# device = "pulse:alsa_output.pci-0000_00_14.2.analog-stereo"
 	# mixer = "Master"
 	# mixer_idx = 0
+	separator = false
+	separator_block_width = 15
 }
 
 tztime local {
 	format = "%Y-%m-%d %H:%M:%S"
+	separator = false
+	separator_block_width = 15
 }
