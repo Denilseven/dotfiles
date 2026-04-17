@@ -11,7 +11,7 @@ set $mod Mod4
 exec lxpolkit --no-startup-id
 
 exec_always feh --bg-fill ~/Pictures/Wallpapers/abstract-4.png
-exec_always xrandr --output HDMI-0 --auto --primary --left-of DP-3 --output DP-3 --off --rotate left
+# exec_always xrandr --output HDMI-0 --auto --primary --left-of DP-3 --output DP-3 --off --rotate left
 # exec_always xsetroot -solid black
 # exec compton
 

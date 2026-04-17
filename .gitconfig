@@ -1,0 +1,11 @@
+[init]
+	defaultBranch = main
+[core]
+	editor = vim
+[alias]
+	s = status
+	st = !git status && echo && git log --oneline -5
+	stat = log --stat # not related to `status` but whatever ,_,
+	l = log --oneline -7
+	lo = log --oneline
+	graph = log --oneline --graph
