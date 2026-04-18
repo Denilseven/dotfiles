@@ -9,3 +9,4 @@
 	l = log --oneline -7
 	lo = log --oneline
 	graph = log --oneline --graph
+	glue = commit --amend --no-edit
