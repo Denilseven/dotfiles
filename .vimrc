@@ -1,6 +1,11 @@
 " Tip: use :map <C-x> to check for bindings
 " Tip: type :options or :help 'option' for details
 " Tip: use the expandtab option to use spaces instead
+" Tip: :help key-notation
+
+inoremap ç <Esc>
+vnoremap ç <Esc>
+cnoremap ç <C-C>
 
 syntax on
 colorscheme zaibatsu
