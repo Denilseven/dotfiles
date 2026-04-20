@@ -10,3 +10,4 @@
 	lo = log --oneline
 	graph = log --oneline --graph
 	glue = commit --amend --no-edit
+	break = reset --soft HEAD~1
