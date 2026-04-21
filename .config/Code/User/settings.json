@@ -1,12 +1,19 @@
 {
-    "workbench.settings.showAISearchToggle": false,
+    "chat.agent.enabled": false,
+    "chat.checkpoints.enabled": false,
     "chat.disableAIFeatures": true,
-    "C_Cpp.default.compilerPath": "/usr/bin/g++",
-    "workbench.colorTheme": "Golden orange",
     "editor.bracketPairColorization.enabled": false,
     "editor.fontFamily": "'Hack', 'Droid Sans Mono', monospace",
+    "editor.fontLigatures": false,
     "editor.minimap.enabled": false,
-    "vim.commandLineModeKeyBindings": [],
+    "explorer.confirmDelete": false,
+    "explorer.confirmDragAndDrop": false,
+    "telemetry.editStats.enabled": false,
+    "telemetry.feedback.enabled": false,
+    "telemetry.telemetryLevel": "off",
+    "workbench.browser.showInTitleBar": false,
+    "workbench.colorTheme": "Golden orange",
+    "workbench.settings.showAISearchToggle": false,
     "vim.insertModeKeyBindingsNonRecursive": [
         {
             "before": ["ç"],
@@ -27,3 +34,4 @@
         }
     ]
 }
+
