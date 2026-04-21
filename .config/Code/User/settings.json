@@ -1,0 +1,29 @@
+{
+    "workbench.settings.showAISearchToggle": false,
+    "chat.disableAIFeatures": true,
+    "C_Cpp.default.compilerPath": "/usr/bin/g++",
+    "workbench.colorTheme": "Golden orange",
+    "editor.bracketPairColorization.enabled": false,
+    "editor.fontFamily": "'Hack', 'Droid Sans Mono', monospace",
+    "editor.minimap.enabled": false,
+    "vim.commandLineModeKeyBindings": [],
+    "vim.insertModeKeyBindingsNonRecursive": [
+        {
+            "before": ["ç"],
+            "after": ["<Esc>"]
+        }
+    ],
+    
+    "vim.visualModeKeyBindingsNonRecursive": [
+        {
+            "before": ["ç"],
+            "after": ["<Esc>"]
+        }
+    ],
+    "vim.commandLineModeKeyBindingsNonRecursive": [
+        {
+            "before": ["ç"],
+            "after": ["<C-C>"]
+        }
+    ]
+}
