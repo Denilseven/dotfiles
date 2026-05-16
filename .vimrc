@@ -6,6 +6,7 @@
 " Tip: type :options or :help 'option' for details
 " Tip: use the expandtab option to use spaces instead
 " Tip: :help key-notation
+" Tip: cat -v
 
 " https://www.youtube.com/watch?v=XA2WjJbmmoM
 " :help netrw-browse-maps
@@ -55,6 +56,7 @@ set ignorecase
 set smartcase
 
 set mouse=a
+set showcmd
 
 function! ToggleColorColumn()
     if &colorcolumn == ""
@@ -70,7 +72,25 @@ nnoremap <Esc>h :tabprevious<CR>
 nnoremap <Esc>l :tabnext<CR>
 nnoremap <Esc>j :tabmove -1<CR>
 nnoremap <Esc>k :tabmove +1<CR>
-nnoremap <Esc>w :tabclose<CR>
+inoremap <Esc>h <Esc>:tabprevious<CR>
+inoremap <Esc>l <Esc>:tabnext<CR>
+inoremap <Esc>j <Esc>:tabmove -1<CR>
+inoremap <Esc>k <Esc>:tabmove +1<CR>
+
+" Go to tab
+nnoremap <Esc>1 :tabnext 1<CR>
+nnoremap <Esc>2 :tabnext 2<CR>
+nnoremap <Esc>3 :tabnext 3<CR>
+nnoremap <Esc>4 :tabnext 4<CR>
+nnoremap <Esc>5 :tabnext 5<CR>
+nnoremap <Esc>6 :tabnext 6<CR>
+nnoremap <Esc>7 :tabnext 7<CR>
+nnoremap <Esc>8 :tabnext 8<CR>
+nnoremap <Esc>9 :tabnext 9<CR>
+nnoremap <Esc>0 :tabnext $<CR> " Jump to the last tab
+
+" New file
+nnoremap <C-n> :tabnew<CR>
 
 " Tabline
 set showtabline=2 " Always show the tabline
@@ -80,22 +100,22 @@ function! TabLineExtra()
     for i in range(1, tabpagenr('$'))
         let buflist = tabpagebuflist(i)
         let winnr = tabpagewinnr(i)
+        let mod = ' '
 
         if !empty(buflist)
             let buf = buflist[winnr - 1]
             let name = bufname(buf) ==# '' ? '[No Name]' : fnamemodify(bufname(buf), ':t')
-            let mod = getbufvar(buf, '&modified') ? '*' : ' '
+            let mod = getbufvar(buf, '&modified') ? '*' : mod
         else
             let name = '[No Name]'
-            let mod = ' '
         endif
 
         if i == tabpagenr()
-            let name = '%#TabLineFill#◢' . '%#TabLineSel#' . ' ' . name . mod
+            let name = '%#TabLineSel# ' . mod .  name . ' '
             let name .= '%#TabLineFill#◣'
         else
             let s .= '%#TabLine#'
-            let name = '  ' . name . mod . ' '
+            let name = ' ' .  mod . name . '  '
         endif
 
         let s .= name
@@ -107,6 +127,12 @@ endfunction
 " Ctrl+s save
 nnoremap <C-s> :w<CR>
 inoremap <C-s> <Esc>:w<CR>
+
+" Alt+w to close
+nnoremap <Esc>w :q<CR>
+
+" Open explorer
+nnoremap <Esc>e :Explore<CR>
 
 " Reload config
 nnoremap <Esc>o :source ~/.vimrc<CR><Cmd>echo "sourced ~/.vimrc!"<CR>
