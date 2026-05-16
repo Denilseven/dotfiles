@@ -1,26 +1,48 @@
+" Some funni:
+" set termguicolors
+" highlight Normal guibg=NONE ctermbg=NONE
+
 " Tip: use :map <C-x> to check for bindings
 " Tip: type :options or :help 'option' for details
 " Tip: use the expandtab option to use spaces instead
 " Tip: :help key-notation
 
+" https://www.youtube.com/watch?v=XA2WjJbmmoM
+" :help netrw-browse-maps
+
 inoremap ç <Esc>
 vnoremap ç <Esc>
 cnoremap ç <C-C>
 
-syntax on
-colorscheme zaibatsu
+syntax enable
 hi MatchParen cterm=bold ctermbg=none ctermfg=green
+colorscheme habamax
+
+set nocompatible
+filetype plugin on
 
 set list
-set listchars=tab:-\ ,trail:·,lead:·
+set listchars=tab:→\ ,trail:·,lead:·
 
-set tabstop=6
-set shiftwidth=6
-set softtabstop=6
+" File browser
+let g:netrw_banner=0
+let g:netrw_liststyle=3
+
+" Search down into subfolders
+" Provides tab-completion for all file-related tasks
+set path+=**
+
+set wildmenu
+set wildoptions+=pum
+
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
+set expandtab
 set autoindent
 set smartindent
 
-" set relativenumber
+set relativenumber
 set number
 set numberwidth=1
 
@@ -33,7 +55,6 @@ set incsearch
 set ignorecase
 set smartcase
 
-set wildmenu
 set mouse=a
 
 function! ToggleColorColumn()
