@@ -17,7 +17,6 @@ cnoremap ç <C-C>
 syntax enable
 hi MatchParen cterm=bold ctermbg=none ctermfg=green
 colorscheme habamax
-
 set nocompatible
 filetype plugin on
 
@@ -58,19 +57,57 @@ set smartcase
 set mouse=a
 
 function! ToggleColorColumn()
-	if &colorcolumn == ""
-		set colorcolumn=120
-	else
-		set colorcolumn=
-	endif
+    if &colorcolumn == ""
+        set colorcolumn=120
+    else
+        set colorcolumn=
+    endif
 endfunction
 nnoremap <Leader>cc :call ToggleColorColumn()<CR>
 
-nnoremap <Leader>h :tabprevious<CR>
-nnoremap <Leader>l :tabnext<CR>
-nnoremap <Leader>j :tabm -1<CR>
-nnoremap <Leader>k :tabm +1<CR>
+" Tabs control
+nnoremap <Esc>h :tabprevious<CR>
+nnoremap <Esc>l :tabnext<CR>
+nnoremap <Esc>j :tabmove -1<CR>
+nnoremap <Esc>k :tabmove +1<CR>
+nnoremap <Esc>w :tabclose<CR>
 
+" Tabline
+set showtabline=2 " Always show the tabline
+set tabline=%!TabLineExtra()
+function! TabLineExtra()
+    let s = ''
+    for i in range(1, tabpagenr('$'))
+        let buflist = tabpagebuflist(i)
+        let winnr = tabpagewinnr(i)
+
+        if !empty(buflist)
+            let buf = buflist[winnr - 1]
+            let name = bufname(buf) ==# '' ? '[No Name]' : fnamemodify(bufname(buf), ':t')
+            let mod = getbufvar(buf, '&modified') ? '*' : ' '
+        else
+            let name = '[No Name]'
+            let mod = ' '
+        endif
+
+        if i == tabpagenr()
+            let name = '%#TabLineFill#◢' . '%#TabLineSel#' . ' ' . name . mod
+            let name .= '%#TabLineFill#◣'
+        else
+            let s .= '%#TabLine#'
+            let name = '  ' . name . mod . ' '
+        endif
+
+        let s .= name
+    endfor
+    let s .= '%#TabLine#%='
+    return s
+endfunction
+
+" Ctrl+s save
 nnoremap <C-s> :w<CR>
 inoremap <C-s> <Esc>:w<CR>
+
+" Reload config
+nnoremap <Esc>o :source ~/.vimrc<CR><Cmd>echo "sourced ~/.vimrc!"<CR>
 
