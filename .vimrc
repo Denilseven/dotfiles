@@ -7,6 +7,7 @@
 " Tip: use the expandtab option to use spaces instead
 " Tip: :help key-notation
 " Tip: cat -v
+" Tip: set makeprg?
 
 " https://www.youtube.com/watch?v=XA2WjJbmmoM
 " :help netrw-browse-maps
@@ -133,6 +134,21 @@ nnoremap <Esc>w :q<CR>
 
 " Open explorer
 nnoremap <Esc>e :Explore<CR>
+
+" Build commands
+set makeprg=make
+nnoremap <F2> :make clean build<CR>
+nnoremap <F3> :make run<CR>
+nnoremap <F5> :make clean run<CR>
+
+" Clipboard
+vnoremap <C-c> y:call system('xclip -selection clipboard -i', @")<CR>
+vnoremap <C-x> d:call system('xclip -selection clipboard -i', @")<CR>
+nnoremap <C-c> yy:call system('xclip -selection clipboard -i', @")<CR>
+nnoremap <C-x> dd:call system('xclip -selection clipboard -i', @")<CR>
+
+" Sort lines
+vnoremap <Esc>a :sort<CR>
 
 " Reload config
 nnoremap <Esc>o :source ~/.vimrc<CR><Cmd>echo "sourced ~/.vimrc!"<CR>
