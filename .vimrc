@@ -134,6 +134,20 @@ nnoremap <Esc>w :q<CR>
 
 " Open explorer
 nnoremap <Esc>e :Explore<CR>
+nnoremap <Esc>E :!tree -C <Bar> less -R<CR>
+
+" Switch from header to definition file and back
+nnoremap <Esc>x :call SwapHeaderSource()<CR>
+function! SwapHeaderSource()
+    let l:ext = expand('%:e')
+    if l:ext ==# 'cxx'
+        execute 'find ' . fnameescape(expand('%:t:r')) . '.hxx'
+    elseif l:ext ==# 'hxx'
+        execute 'find ' . fnameescape(expand('%:t:r')) . '.cxx'
+    else
+        echo "Can't find for extension `." . l:ext . "`"
+    endif
+endfunction
 
 " Build commands
 set makeprg=make
