@@ -66,7 +66,7 @@ function! ToggleColorColumn()
         set colorcolumn=
     endif
 endfunction
-nnoremap <Leader>cc :call ToggleColorColumn()<CR>
+nnoremap ,line :call ToggleColorColumn()<CR>
 
 " Tabs control
 nnoremap <Esc>h :tabprevious<CR>
@@ -156,10 +156,14 @@ nnoremap <F3> :make run<CR>
 nnoremap <F5> :make clean run<CR>
 
 " Clipboard
-vnoremap <C-c> y:call system('xclip -selection clipboard -i', @")<CR>
-vnoremap <C-x> d:call system('xclip -selection clipboard -i', @")<CR>
-nnoremap <C-c> yy:call system('xclip -selection clipboard -i', @")<CR>
-nnoremap <C-x> dd:call system('xclip -selection clipboard -i', @")<CR>
+" *Pasting already works out of the box
+vnoremap <Leader>x d:call system('xclip -selection clipboard -i', @")<CR>
+vnoremap <Leader>c y:call system('xclip -selection clipboard -i', @")<CR>
+nnoremap <Leader>x dd:call system('xclip -selection clipboard -i', @")<CR>
+nnoremap <Leader>c yy:call system('xclip -selection clipboard -i', @")<CR>
+
+" Open up this file
+nnoremap ,config :tabnew<CR>:edit ~/.vimrc<CR>
 
 " Sort lines
 vnoremap <Esc>a :sort<CR>
