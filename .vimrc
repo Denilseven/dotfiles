@@ -1,7 +1,3 @@
-" Some funni:
-" set termguicolors
-" highlight Normal guibg=NONE ctermbg=NONE
-
 " Tip: use :map <C-x> to check for bindings
 " Tip: type :options or :help 'option' for details
 " Tip: use the expandtab option to use spaces instead
@@ -16,11 +12,14 @@ inoremap ç <Esc>
 vnoremap ç <Esc>
 cnoremap ç <C-C>
 
-syntax enable
-hi MatchParen cterm=bold ctermbg=none ctermfg=green
 colorscheme habamax
+syntax enable
 set nocompatible
-filetype plugin on
+set termguicolors
+hi Normal guibg=NONE ctermbg=NONE
+hi TabLineSel guibg=NONE ctermbg=NONE
+hi Comment cterm=italic
+" filetype plugin on
 
 set list
 set listchars=tab:→\ ,trail:·,lead:·
@@ -97,7 +96,7 @@ nnoremap <C-n> :tabnew<CR>
 set showtabline=2 " Always show the tabline
 set tabline=%!TabLineExtra()
 function! TabLineExtra()
-    let s = ''
+    let s = '  '
     for i in range(1, tabpagenr('$'))
         let buflist = tabpagebuflist(i)
         let winnr = tabpagewinnr(i)
@@ -112,8 +111,8 @@ function! TabLineExtra()
         endif
 
         if i == tabpagenr()
-            let name = '%#TabLineSel# ' . mod .  name . ' '
-            let name .= '%#TabLineFill#◣'
+            let name = '%#TabLine#▚%#TabLineSel#' . mod .  name . ' '
+            let name .= '%#TabLine#▚'
         else
             let s .= '%#TabLine#'
             let name = ' ' .  mod . name . '  '
@@ -124,6 +123,9 @@ function! TabLineExtra()
     let s .= '%#TabLine#%='
     return s
 endfunction
+
+" Rename "NetrwTreeListing" tab
+autocmd FileType netrw file [Netrw]
 
 " Ctrl+s save
 nnoremap <C-s> :w<CR>
@@ -170,4 +172,9 @@ vnoremap <Esc>a :sort<CR>
 
 " Reload config
 nnoremap <Esc>o :source ~/.vimrc<CR><Cmd>echo "sourced ~/.vimrc!"<CR>
+
+" Snippets
+nnoremap ,cout i/* DEBUG */ std::cout <<  << std::endl;<Esc>4bhi
+nnoremap ,debug 0i/* DEBUG */ <Esc>
+nnoremap ,ddebug 0df/x<Esc>
 
