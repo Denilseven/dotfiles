@@ -19,7 +19,13 @@ set termguicolors
 hi Normal guibg=NONE ctermbg=NONE
 hi TabLineSel guibg=NONE ctermbg=NONE
 hi Comment cterm=italic
+hi MatchParen ctermfg=Green guifg=Green
+hi LineNr ctermfg=White guifg=White
 " filetype plugin on
+
+" For git-gutter plugin
+set updatetime=300
+set signcolumn=number
 
 set list
 set listchars=tab:→\ ,trail:·,lead:·
