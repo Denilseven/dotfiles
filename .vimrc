@@ -12,7 +12,7 @@ inoremap ç <Esc>
 vnoremap ç <Esc>
 cnoremap ç <C-C>
 
-colorscheme habamax
+colorscheme wildcharm
 syntax enable
 set nocompatible
 set termguicolors
@@ -20,12 +20,14 @@ hi Normal guibg=NONE ctermbg=NONE
 hi TabLineSel guibg=NONE ctermbg=NONE
 hi Comment cterm=italic
 hi MatchParen ctermfg=Green guifg=Green
-hi LineNr ctermfg=White guifg=White
+hi LineNr ctermfg=White guifg=White cterm=bold
+hi LineNrAbove ctermfg=DarkGray guifg=DarkGray cterm=NONE
+hi LineNrBelow ctermfg=DarkGray guifg=DarkGray cterm=NONE
 " filetype plugin on
 
 " For git-gutter plugin
 set updatetime=300
-set signcolumn=number
+set signcolumn=yes
 
 set list
 set listchars=tab:→\ ,multispace:·\ \ \ ,trail:·
@@ -103,7 +105,7 @@ nnoremap <C-n> :tabnew<CR>
 set showtabline=2 " Always show the tabline
 set tabline=%!TabLineExtra()
 function! TabLineExtra()
-    let s = '  '
+    let s = '%#TabLine#  '
     for i in range(1, tabpagenr('$'))
         let buflist = tabpagebuflist(i)
         let winnr = tabpagewinnr(i)
@@ -118,8 +120,8 @@ function! TabLineExtra()
         endif
 
         if i == tabpagenr()
-            let name = '%#TabLine#▚%#TabLineSel#' . mod .  name . ' '
-            let name .= '%#TabLine#▚'
+            let name = '◢%#TabLineSel#' . mod .  name . ' '
+            let name .= '%#TabLine#◣'
         else
             let s .= '%#TabLine#'
             let name = ' ' .  mod . name . '  '
@@ -127,12 +129,13 @@ function! TabLineExtra()
 
         let s .= name
     endfor
-    let s .= '%#TabLine#%='
+    " let s .= '%#TabLine#%='
+    let s .= '%#TabLine#◢%#TabLineSel#'
     return s
 endfunction
 
 " Rename "NetrwTreeListing" tab
-" autocmd FileType netrw file [Netrw]
+autocmd FileType netrw file [Netrw]
 
 " Ctrl+s save
 nnoremap <C-s> :w<CR>
@@ -154,6 +157,9 @@ function! SwapHeaderSource()
         echo "Can't find for extension `." . l:ext . "`"
     endif
 endfunction
+
+" Open Source and Header in a split
+nnoremap <C-w>x <C-w>v :call SwapHeaderSource()<CR>
 
 " Build commands
 set makeprg=make
