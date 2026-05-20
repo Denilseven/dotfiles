@@ -28,7 +28,8 @@ set updatetime=300
 set signcolumn=number
 
 set list
-set listchars=tab:→\ ,trail:·,lead:·
+set listchars=tab:→\ ,multispace:·\ \ \ ,trail:·
+" set listchars=tab:→\ ,trail:·,lead:·
 
 " File browser
 let g:netrw_banner=0
@@ -131,14 +132,11 @@ function! TabLineExtra()
 endfunction
 
 " Rename "NetrwTreeListing" tab
-autocmd FileType netrw file [Netrw]
+" autocmd FileType netrw file [Netrw]
 
 " Ctrl+s save
 nnoremap <C-s> :w<CR>
 inoremap <C-s> <Esc>:w<CR>
-
-" Alt+w to close
-nnoremap <Esc>w :q<CR>
 
 " Open explorer
 nnoremap <Esc>e :Explore<CR>
