@@ -135,7 +135,7 @@ function! TabLineExtra()
 endfunction
 
 " Rename "NetrwTreeListing" tab
-autocmd FileType netrw file [Netrw]
+" autocmd FileType netrw file [Netrw]
 
 " Ctrl+s save
 nnoremap <C-s> :w<CR>
@@ -182,6 +182,9 @@ vnoremap <Esc>a :sort<CR>
 
 " Reload config
 nnoremap <Esc>o :source ~/.vimrc<CR><Cmd>echo "sourced ~/.vimrc!"<CR>
+
+" Generate ctags
+nnoremap ,ctags :!ctags -R --languages=C,C++ --c++-kinds=+p --fields=+iaS -f tags<CR>
 
 " Snippets
 nnoremap ,cout i/* DEBUG */ std::cout <<  << std::endl;<Esc>4bhi
