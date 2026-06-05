@@ -17,13 +17,18 @@ set termguicolors
 
 syntax on
 colorscheme wildcharm
-hi Normal guibg=NONE ctermbg=NONE
-hi TabLineSel guibg=NONE ctermbg=NONE
-hi Comment cterm=italic
-hi MatchParen ctermfg=Green guifg=Green
-hi LineNr ctermfg=White guifg=White cterm=bold
-hi LineNrAbove ctermfg=DarkGray guifg=#585858 cterm=NONE
-hi LineNrBelow ctermfg=DarkGray guifg=#585858 cterm=NONE
+
+autocmd ColorScheme *
+        \ hi Normal guibg=NONE ctermbg=NONE |
+        \ hi TabLineSel guibg=NONE ctermbg=NONE |
+        \ hi Comment cterm=italic |
+        \ hi MatchParen ctermfg=Green guifg=Green |
+        \ hi LineNr ctermfg=Yellow guifg=Yellow cterm=bold |
+        \ hi LineNrAbove ctermfg=DarkGray guifg=#585858 cterm=NONE |
+        \ hi LineNrBelow ctermfg=DarkGray guifg=#585858 cterm=NONE
+
+set cursorlineopt=line
+set cursorline
 
 set list
 set listchars=tab:→\ ,leadmultispace:·\ \ \ ,multispace:··,trail:·,precedes:<,extends:>
