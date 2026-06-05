@@ -138,9 +138,6 @@ function! TabLineExtra()
     return s
 endfunction
 
-" Rename "NetrwTreeListing" tab
-" autocmd FileType netrw file [Netrw]
-
 " Ctrl+s save
 nnoremap <C-s> :w<CR>
 inoremap <C-s> <Esc>:w<CR>
@@ -181,7 +178,8 @@ nnoremap <Leader>c yy:call system('xclip -selection clipboard -i', @")<CR>
 " Open up this file
 nnoremap ,config :tabnew<CR>:edit ~/.vimrc<CR>
 
-" Sort lines
+" Sort paragraph under cursor
+nnoremap <Esc>a vip:sort<CR>}
 vnoremap <Esc>a :sort<CR>
 
 " Reload config
@@ -191,7 +189,5 @@ nnoremap <Esc>o :source ~/.vimrc<CR><Cmd>echo "sourced ~/.vimrc!"<CR>
 nnoremap ,ctags :!ctags -R --languages=C,C++ --c++-kinds=+p --fields=+iaS -f tags<CR>
 
 " Snippets
-nnoremap ,cout i/* DEBUG */ std::cout <<  << std::endl;<Esc>4bhi
-nnoremap ,debug 0i/* DEBUG */ <Esc>
-nnoremap ,ddebug 0df/x<Esc>
+nnoremap ,cout ostd::cout <<  << std::endl;<Esc>4bhi
 
