@@ -9,5 +9,6 @@
 	l = log --oneline -7
 	lo = log --oneline
 	graph = log --oneline --graph
+	edit = commit --amend
 	glue = commit --amend --no-edit
 	break = reset --soft HEAD~1
