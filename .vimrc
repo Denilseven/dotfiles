@@ -12,34 +12,21 @@ inoremap ç <Esc>
 vnoremap ç <Esc>
 cnoremap ç <C-C>
 
-colorscheme wildcharm
-syntax enable
 set nocompatible
 set termguicolors
+
+syntax on
+colorscheme wildcharm
 hi Normal guibg=NONE ctermbg=NONE
 hi TabLineSel guibg=NONE ctermbg=NONE
 hi Comment cterm=italic
 hi MatchParen ctermfg=Green guifg=Green
 hi LineNr ctermfg=White guifg=White cterm=bold
-hi LineNrAbove ctermfg=DarkGray guifg=DarkGray cterm=NONE
-hi LineNrBelow ctermfg=DarkGray guifg=DarkGray cterm=NONE
-" filetype plugin on
-
-" For git-gutter plugin
-set updatetime=300
-set signcolumn=yes
+hi LineNrAbove ctermfg=DarkGray guifg=#585858 cterm=NONE
+hi LineNrBelow ctermfg=DarkGray guifg=#585858 cterm=NONE
 
 set list
-set listchars=tab:→\ ,multispace:·\ \ \ ,trail:·
-" set listchars=tab:→\ ,trail:·,lead:·
-
-" File browser
-let g:netrw_banner=0
-let g:netrw_liststyle=3
-
-" Search down into subfolders
-" Provides tab-completion for all file-related tasks
-set path+=**
+set listchars=tab:→\ ,leadmultispace:·\ \ \ ,multispace:··,trail:·,precedes:<,extends:>
 
 set wildmenu
 set wildoptions+=pum
@@ -67,9 +54,21 @@ set smartcase
 set mouse=a
 set showcmd
 
+" For git-gutter plugin
+set updatetime=300
+set signcolumn=yes
+
+" File browser
+let g:netrw_banner=0
+let g:netrw_liststyle=3
+
+" Search down into subfolders
+" Provides tab-completion for all file-related tasks
+set path+=**
+
 function! ToggleColorColumn()
     if &colorcolumn == ""
-        set colorcolumn=120
+        set colorcolumn=80
     else
         set colorcolumn=
     endif
@@ -120,11 +119,11 @@ function! TabLineExtra()
         endif
 
         if i == tabpagenr()
-            let name = '◢%#TabLineSel#' . mod .  name . ' '
+            let name = '◢%#TabLineSel#' . mod . name . ' '
             let name .= '%#TabLine#◣'
         else
             let s .= '%#TabLine#'
-            let name = ' ' .  mod . name . '  '
+            let name = ' ' . mod . name . '  '
         endif
 
         let s .= name
