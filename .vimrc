@@ -14,24 +14,13 @@ cnoremap ç <C-C>
 
 set nocompatible
 set termguicolors
-
-syntax on
-colorscheme wildcharm
-
-autocmd ColorScheme *
-        \ hi Normal guibg=NONE ctermbg=NONE |
-        \ hi TabLineSel guibg=NONE ctermbg=NONE |
-        \ hi Comment cterm=italic |
-        \ hi MatchParen ctermfg=Green guifg=Green |
-        \ hi LineNr ctermfg=Yellow guifg=Yellow cterm=bold |
-        \ hi LineNrAbove ctermfg=DarkGray guifg=#585858 cterm=NONE |
-        \ hi LineNrBelow ctermfg=DarkGray guifg=#585858 cterm=NONE
+filetype on
 
 set cursorlineopt=line
 set cursorline
 
 set list
-set listchars=tab:→\ ,leadmultispace:·\ \ \ ,multispace:··,trail:·,precedes:<,extends:>
+set listchars=tab:→\ ,lead:\ ,multispace:··,trail:·,precedes:<,extends:>
 
 set wildmenu
 set wildoptions+=pum
@@ -45,9 +34,9 @@ set smartindent
 
 set relativenumber
 set number
-set numberwidth=1
+set numberwidth=4
 
-set scrolloff=10
+set scrolloff=0
 set nowrap
 
 set hlsearch
@@ -61,7 +50,15 @@ set showcmd
 
 " For git-gutter plugin
 set updatetime=300
-set signcolumn=yes
+set signcolumn=no
+
+" For youcompleteme/ycm plugin
+let g:ycm_auto_hover = ''
+nnoremap <silent> <leader>D <plug>(YCMHover)
+nnoremap <Esc>d <plug>(YCMHover)
+
+" For tagbar plugin
+nnoremap <F8> :TagbarToggle<CR>
 
 " File browser
 let g:netrw_banner=0
@@ -106,26 +103,29 @@ nnoremap <Esc>0 :tabnext $<CR> " Jump to the last tab
 nnoremap <C-n> :tabnew<CR>
 
 " Tabline
+" TODO: this looks pretty big for something simple...
 set showtabline=2 " Always show the tabline
 set tabline=%!TabLineExtra()
 function! TabLineExtra()
-    let s = '%#TabLine#  '
+    " let s = '%#TabLine#  '
+    let s = '%#TabLine#'
     for i in range(1, tabpagenr('$'))
         let buflist = tabpagebuflist(i)
         let winnr = tabpagewinnr(i)
         let mod = ' '
+        let noname = 'NONAME'
 
         if !empty(buflist)
             let buf = buflist[winnr - 1]
-            let name = bufname(buf) ==# '' ? '[No Name]' : fnamemodify(bufname(buf), ':t')
+            let name = bufname(buf) ==# '' ? noname : fnamemodify(bufname(buf), ':t')
             let mod = getbufvar(buf, '&modified') ? '*' : mod
         else
-            let name = '[No Name]'
+            let name = noname
         endif
 
         if i == tabpagenr()
-            let name = '◢%#TabLineSel#' . mod . name . ' '
-            let name .= '%#TabLine#◣'
+            let name = '%#TabLineSel#[' . mod . name . ' '
+            let name .= ']%#TabLine#'
         else
             let s .= '%#TabLine#'
             let name = ' ' . mod . name . '  '
@@ -133,8 +133,8 @@ function! TabLineExtra()
 
         let s .= name
     endfor
-    " let s .= '%#TabLine#%='
-    let s .= '%#TabLine#◢%#TabLineSel#'
+    let s .= '%#TabLine#%='
+    " let s .= '%#TabLine#◢%#TabLineSel#'
     return s
 endfunction
 
@@ -147,7 +147,6 @@ nnoremap <Esc>e :Explore<CR>
 nnoremap <Esc>E :!tree -C <Bar> less -R<CR>
 
 " Switch from header to definition file and back
-nnoremap <Esc>x :call SwapHeaderSource()<CR>
 function! SwapHeaderSource()
     let l:ext = expand('%:e')
     if l:ext ==# 'cxx'
@@ -158,6 +157,7 @@ function! SwapHeaderSource()
         echo "Can't find for extension `." . l:ext . "`"
     endif
 endfunction
+nnoremap <Esc>x :call SwapHeaderSource()<CR>
 
 " Open Source and Header in a split
 nnoremap <C-w>x <C-w>v :call SwapHeaderSource()<CR>
@@ -190,4 +190,19 @@ nnoremap ,ctags :!ctags -R --languages=C,C++ --c++-kinds=+p --fields=+iaS -f tag
 
 " Snippets
 nnoremap ,cout ostd::cout <<  << std::endl;<Esc>4bhi
+
+" Themes and such
+autocmd ColorScheme *
+        \ hi Normal guibg=NONE ctermbg=NONE |
+        \ hi TabLineSel guibg=NONE ctermbg=NONE |
+        \ hi Comment cterm=italic |
+        \ hi MatchParen ctermfg=Green guifg=Green |
+        \ hi LineNr ctermfg=Yellow guifg=Yellow cterm=bold |
+        \ hi LineNrAbove ctermfg=DarkGray guifg=#585858 cterm=NONE |
+        \ hi LineNrBelow ctermfg=DarkGray guifg=#585858 cterm=NONE |
+        \ hi YcmWarningText ctermfg=67 guisp=#5f87af |
+        \ hi YcmWarningSection ctermfg=67 guisp=#5f87af cterm=NONE
+
+syntax on
+colorscheme habamax
 
